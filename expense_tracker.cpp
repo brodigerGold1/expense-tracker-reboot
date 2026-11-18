@@ -389,9 +389,18 @@ void viewExpenses(vector<Expense>& expenses) {
     }
 }
 
+vector<Expense> loadExpenses() {
+    
+}
+
+void saveExpenses(vector<Expense> expenses) {
+
+}
+
 int main() {
     vector<Expense> expenses;
     int choice = 0;
+    expenses = loadExpenses();
 
     do {
         removeOldExpenses(expenses);
@@ -429,5 +438,6 @@ int main() {
         }
     } while (choice != 4);
 
+    saveExpenses(expenses);
     return 0;
 }

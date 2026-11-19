@@ -511,6 +511,6 @@ int main() {
         }
     } while (choice != 4);
 
-    saveExpenses(expenses, settings);
+    save(expenses, settings);
     return 0;
 }

@@ -448,15 +448,32 @@ void load(vector<Expense>& expenses, Settings& settings) {
 
 void save(vector<Expense>& expenses, Settings& settings) {
     ofstream saveFile("expenses.txt");
+    for (Expense expense : expenses) {
+        saveFile << expense.item << endl;
+        saveFile << to_string(expense.price) << endl;
+        saveFile << expense.dateAdded << endl;
+        saveFile << expense.category << endl;
+        for (int i = 0; i <= 4; i++) {
+            if (i >= expense.subcategories.size()) {
+                saveFile << "" << endl;
+            } else {
+                saveFile << expense.subcategories.at(i) << endl;
+            }
+        }
+    }
+    saveFile.close();
+
+    saveFile.open("settings.txt", ios::out);
+    saveFile << settings.symbol << endl;
+    saveFile << settings.position << endl;
+    saveFile << to_string(settings.autoRemoveDays) << endl;
+    saveFile << settings.treeSort << endl;
 }
 
 int main() {
     vector<Expense> expenses;
     int choice = 0;
-<<<<<<< HEAD
     load(expenses, settings);
-=======
->>>>>>> e29b43cfbfab62da4769fbcdfc446ebbe5fa5d4e
 
     do {
         removeOldExpenses(expenses);
@@ -494,6 +511,6 @@ int main() {
         }
     } while (choice != 4);
 
-    saveExpenses(expenses);
+    saveExpenses(expenses, settings);
     return 0;
 }

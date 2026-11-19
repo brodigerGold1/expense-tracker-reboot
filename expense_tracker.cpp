@@ -418,8 +418,8 @@ void load(vector<Expense>& expenses, Settings& settings) {
                         expenses.push_back(expense);
                     }
             }
+            lineNumber++;
         }
-        lineNumber++;
     }
     saved.close();
 

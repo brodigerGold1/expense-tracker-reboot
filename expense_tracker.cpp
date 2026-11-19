@@ -8,6 +8,7 @@
 #include <cctype>    
 #include <ctime>
 #include <limits>    
+#include <fstream>
 
 using namespace std;
 
@@ -389,18 +390,70 @@ void viewExpenses(vector<Expense>& expenses) {
     }
 }
 
-vector<Expense> loadExpenses() {
-    
+void load(vector<Expense>& expenses, Settings& settings) {
+    ifstream saved("expenses.txt");
+    Expense expense;
+    string line;
+    int lineNumber = 0;
+    if (saved) { //if the saved expenses file can be accessed
+        while (getline(saved, line)) {
+            switch(lineNumber % 9) {
+                case 0:
+                    expense.item = line;
+                    break;
+                case 1:
+                    expense.price = stod(line);
+                    break;
+                case 2:
+                    expense.dateAdded = line;
+                    break;
+                case 3:
+                    expense.category = line;
+                    break;
+                default:
+                    if (!line.empty()) {
+                        expense.subcategories.push_back(line);
+                    }
+                    if (lineNumber % 9 == 8) {
+                        expenses.push_back(expense);
+                    }
+            }
+        }
+        lineNumber++;
+    }
+    saved.close();
+
+    saved.open("settings.txt");
+    if (saved) { //if the saved settings file can be accessed
+        for (lineNumber = 0; lineNumber < 4; lineNumber++) {
+            getline(saved, line);
+            switch (lineNumber) {
+                case 0:
+                    settings.symbol = line;
+                    break;
+                case 1:
+                    settings.position = *line.begin();
+                    break;
+                case 2:
+                    settings.autoRemoveDays = stoi(line);
+                    break;
+                case 3:
+                    settings.treeSort = *line.begin();
+                    break;
+            }
+        }
+    }
+    saved.close();
 }
 
-void saveExpenses(vector<Expense> expenses) {
-
+void save(vector<Expense>& expenses, Settings& settings) {
+    ofstream saveFile("expenses.txt");
 }
 
 int main() {
     vector<Expense> expenses;
     int choice = 0;
-    expenses = loadExpenses();
+    load(expenses, settings);
 
     do {
         removeOldExpenses(expenses);

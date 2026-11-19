@@ -8,6 +8,7 @@
 #include <cctype>    
 #include <ctime>
 #include <limits>    
+#include <fstream>
 
 using namespace std;
 
@@ -400,7 +401,6 @@ void saveExpenses(vector<Expense> expenses) {
 int main() {
     vector<Expense> expenses;
     int choice = 0;
-    expenses = loadExpenses();
 
     do {
         removeOldExpenses(expenses);

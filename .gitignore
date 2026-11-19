@@ -1,2 +1,6 @@
-# Save and C++ build files *.exe *.obj *.pdb *.ilk *.txt
-expense_tracker.exe
+# Save and C++ build files
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.txt

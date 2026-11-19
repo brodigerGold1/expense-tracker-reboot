@@ -1,1 +1,6 @@
-# Save and C++ build files *.exe *.obj *.pdb *.ilk *.txt
+# Save and C++ build files
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.txt

@@ -397,7 +397,7 @@ void load(vector<Expense>& expenses, Settings& settings) {
     int lineNumber = 0;
     if (saved) { //if the saved expenses file can be accessed
         while (getline(saved, line)) {
-            switch(lineNumber % 9) {
+            switch(lineNumber % 10) {
                 case 0:
                     expense.item = line;
                     break;
@@ -408,14 +408,18 @@ void load(vector<Expense>& expenses, Settings& settings) {
                     expense.dateAdded = line;
                     break;
                 case 3:
+                    expense.addedAt = stol(line);
+                    break;
+                case 4:
                     expense.category = line;
                     break;
                 default:
                     if (!line.empty()) {
                         expense.subcategories.push_back(line);
                     }
-                    if (lineNumber % 9 == 8) {
+                    if (lineNumber % 10 == 9) {
                         expenses.push_back(expense);
+                        expense = Expense{};
                     }
             }
             lineNumber++;
@@ -452,6 +456,7 @@ void save(vector<Expense>& expenses, Settings& settings) {
         saveFile << expense.item << endl;
         saveFile << to_string(expense.price) << endl;
         saveFile << expense.dateAdded << endl;
+        saveFile << expense.addedAt << endl;
         saveFile << expense.category << endl;
         for (int i = 0; i <= 4; i++) {
             if (i >= expense.subcategories.size()) {

@@ -453,7 +453,10 @@ void save(vector<Expense>& expenses, Settings& settings) {
 int main() {
     vector<Expense> expenses;
     int choice = 0;
+<<<<<<< HEAD
     load(expenses, settings);
+=======
+>>>>>>> e29b43cfbfab62da4769fbcdfc446ebbe5fa5d4e
 
     do {
         removeOldExpenses(expenses);
